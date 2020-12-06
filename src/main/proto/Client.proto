@@ -1,0 +1,48 @@
+syntax = "proto3";
+option java_multiple_files=true;
+option java_generic_services = true;
+package com.services.grpc.server.horse;
+
+message ProtoClient{
+  string id = 1;
+  string name = 2;
+  int32 credit_money = 3;
+  string horsemanStatus = 4;
+  string sportCategory = 5;
+}
+
+message ClientEmpty{
+}
+
+message ClientResponse{
+  repeated ProtoClient client=1;
+}
+
+message ClientRequest{
+  ProtoClient horse = 1;
+}
+
+message ClientIdRequest{
+  string id=1;
+}
+
+message intRequest{
+  int32 moneyAmount=1;
+}
+
+message ClientMoneyRequest{
+  string id = 1;
+  int32 moneyAmount=2;
+}
+
+message ClientStringResponse{
+  string answer = 1;
+}
+
+service ClientService{
+  rpc getClients(ClientEmpty) returns (ClientResponse);
+  rpc getClientById(ClientIdRequest) returns (ClientResponse);
+  rpc addClient(ClientRequest) returns (ClientResponse);
+  rpc spendMoney(ClientMoneyRequest) returns (ClientStringResponse);
+  rpc earnMoney(ClientMoneyRequest) returns (ClientStringResponse);
+}

@@ -1,0 +1,49 @@
+syntax = "proto3";
+option java_multiple_files=true;
+option java_generic_services = true;
+package com.services.grpc.server.horse;
+
+message ProtoHorse{
+  string id = 1;
+  string name = 2;
+  string owner_id = 3;
+  string horsemanStatus = 4;
+  int32 price=5;
+  string lastTimeEat = 6;
+  bool isIll = 7;
+}
+
+message HorseEmpty{
+}
+
+message HorseResponse{
+  repeated ProtoHorse horse=1;
+}
+
+message HorseRequest{
+  string name = 1;
+  string owner_id = 2;
+  string horsemanStatus = 3;
+  int32 price=4;
+}
+
+message HorsemanRequest{
+  string status = 1;
+}
+
+message HorseIdRequest{
+  string id = 1;
+}
+
+message HorseStringResponse{
+  string answer = 1;
+}
+
+service HorseService{
+  rpc getHorses(HorseEmpty) returns (HorseResponse);
+  rpc getHorseById(HorseIdRequest) returns (HorseResponse);
+  rpc getSuitableHorse(HorsemanRequest) returns (HorseResponse);
+  rpc addHorse(HorseRequest) returns (HorseResponse);
+  rpc feedHorse(HorseIdRequest) returns (HorseStringResponse);
+  rpc recoverHorse(HorseIdRequest) returns (HorseStringResponse);
+}

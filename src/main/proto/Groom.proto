@@ -1,0 +1,36 @@
+syntax = "proto3";
+option java_multiple_files=true;
+option java_generic_services = true;
+package com.services.grpc.server.groom;
+
+message ProtoGroom{
+  string id = 1;
+  string name = 2;
+  int32 salary = 3;
+  int32 carePrice = 4;
+  int32 horseFedNumber = 5;
+}
+
+message GroomEmpty{
+}
+
+message GroomResponse{
+  repeated ProtoGroom grooms=1;
+}
+
+message GroomRequest{
+  string name = 1;
+  int32 salary = 2;
+  int32 carePrice = 3;
+}
+
+message GroomIdRequest{
+  string id=1;
+}
+
+service GroomService{
+  rpc showGrooms(GroomEmpty) returns (GroomResponse);
+  rpc showGroomById(GroomIdRequest) returns (GroomResponse);
+  rpc addGroom(GroomRequest) returns (GroomResponse);
+  rpc deleteGroom(GroomIdRequest) returns (GroomEmpty);
+}

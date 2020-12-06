@@ -1,0 +1,36 @@
+syntax = "proto3";
+option java_multiple_files=true;
+option java_generic_services = true;
+package com.services.grpc.server.vet;
+
+message ProtoVet{
+  string id = 1;
+  string name = 2;
+  int32 salary = 3;
+  int32 consultationPrice = 4;
+  int32 recoveredHorsesNumber = 5;
+}
+
+message VetEmpty{
+}
+
+message VetResponse{
+  repeated ProtoVet vets=1;
+}
+
+message VetRequest{
+  string name = 1;
+  int32 salary = 2;
+  int32 carePrice = 3;
+}
+
+message VetIdRequest{
+  string id=1;
+}
+
+service VetService{
+  rpc showVets(VetEmpty) returns (VetResponse);
+  rpc showVetById(VetIdRequest) returns (VetResponse);
+  rpc addVet(VetRequest) returns (VetResponse);
+  rpc deleteVet(VetIdRequest) returns (VetEmpty);
+}

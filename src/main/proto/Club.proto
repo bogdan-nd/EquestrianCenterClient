@@ -1,0 +1,37 @@
+syntax = "proto3";
+option java_multiple_files=true;
+option java_generic_services=true;
+package com.services.grpc.server.club;
+
+message ProtoClub{
+  string id=1;
+  int32 moneyAmount = 2;
+  int32 seedCapital = 3;
+}
+
+message ClubEmpty{
+
+}
+
+message ClubResponse{
+  ProtoClub club = 1;
+}
+
+message CreateClubRequest{
+  int32 seedCapital = 1;
+}
+
+message ClubMoneyRequest{
+  int32 moneyAmount = 1;
+}
+
+message ClubStringResponse{
+  string text =1;
+}
+
+service ClubService{
+  rpc getClub(ClubEmpty) returns (ClubResponse);
+  rpc addClub(CreateClubRequest) returns (ClubResponse);
+  rpc spendMoney(ClubMoneyRequest) returns (ClubStringResponse);
+  rpc earnMoney(ClubMoneyRequest) returns (ClubStringResponse);
+}

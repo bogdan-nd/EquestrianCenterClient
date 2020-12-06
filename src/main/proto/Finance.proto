@@ -1,0 +1,32 @@
+syntax = "proto3";
+option java_multiple_files=true;
+option java_generic_services = true;
+package com.services.grpc.server.finance;
+
+message ProtoFinance{
+  string id = 1;
+  string senderId = 2;
+  string receiverId = 3;
+  int32 moneyAmount = 4;
+  string description=5;
+}
+
+message PaymentRequest{
+  string senderId = 1;
+  string receiverId = 2;
+  int32 moneyAmount = 3;
+  string description=4;
+}
+
+message PaymentResponse{
+  repeated ProtoFinance payments=1;
+}
+
+message PaymentIdRequest{
+  string id=1;
+}
+
+service FinanceService{
+  rpc getClientPayments(PaymentIdRequest) returns (PaymentResponse);
+  rpc createPayment(PaymentRequest) returns (PaymentResponse);
+}

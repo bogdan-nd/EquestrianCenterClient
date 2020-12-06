@@ -1,0 +1,38 @@
+syntax = "proto3";
+option java_multiple_files=true;
+option java_generic_services = true;
+package com.services.grpc.server.training;
+
+message ProtoTraining{
+  string id = 1;
+  string trainerId = 2;
+  string horseId = 3;
+  string clientId = 4;
+  string startTime=5;
+  int32 duration=6;
+}
+
+message TrainingEmpty{
+}
+
+message TrainingResponse{
+  repeated ProtoTraining trainings=1;
+}
+
+message TrainingRequest{
+  string trainerId = 1;
+  string horseId = 2;
+  string clientId = 3;
+  string startTime=4;
+}
+
+message IdRequest{
+  string id=1;
+}
+
+service TrainingService{
+  rpc showTrainings(TrainingEmpty) returns (TrainingResponse);
+  rpc showTrainingById(IdRequest) returns (TrainingResponse);
+  rpc addTraining(TrainingRequest) returns (TrainingResponse);
+  rpc deleteTraining(IdRequest) returns (TrainingEmpty);
+}
